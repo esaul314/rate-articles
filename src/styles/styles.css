@@ -1,0 +1,90 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.vh-100 {
+  height: calc(100vh - 56px); /* Adjust for Navbar height */
+}
+
+#article-content {
+  max-height: calc(100vh - 200px); /* Adjust based on your layout */
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+@media (max-width: 768px) {
+  /* Adjust for small screens */
+  .vh-100 {
+    height: calc(100vh - 112px); /* Adjust if Navbar stacks */
+  }
+}
+
+.article-reviewed.active {
+  background-color: #bde5bd !important; /* Slightly darker when active */
+}
+
+.sidebar {
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+/* Adjust the article-reviewed class */
+.article-reviewed {
+  background-color: #e6ffe6 !important; /* Less bright green */
+}
+
+/* Badge styling */
+.badge {
+  font-size: 0.9rem;
+}
+
+/* Adjust spacing between article list and rating controls */
+.rating-controls {
+  background-color: #f9f9fc; /* Light lavender background */
+  margin-top: 1rem;
+}
+
+/* Optional: Adjust the ListGroup.Item */
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Adjust the active item */
+.list-group-item.active {
+  background-color: #3e3e3f !important;
+  border-color: #b8daff;
+}
+
+.rating-controls {
+  background-color: #f9f9fc; /* Light lavender background */
+}
+
+.rating-controls .card {
+  background-color: transparent; /* To inherit the background color from .rating-controls */
+  border: 1px solid #dee2e6;
+}
+
+.article-list {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  background-color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.article-list .list-group-item {
+  border: none;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.article-list .list-group-item:last-child {
+  border-bottom: none;
+}
