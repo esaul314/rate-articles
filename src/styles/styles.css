@@ -48,8 +48,18 @@ body,
 
 /* Adjust spacing between article list and rating controls */
 .rating-controls {
+  flex-shrink: 0;
   background-color: #f9f9fc; /* Light lavender background */
-  margin-top: 1rem;
+  margin-top: auto;
+  margin-bottom: 1.2rem;
+}
+
+.sidebar {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* Optional: Adjust the ListGroup.Item */
@@ -62,10 +72,6 @@ body,
 .list-group-item.active {
   background-color: #3e3e3f !important;
   border-color: #b8daff;
-}
-
-.rating-controls {
-  background-color: #f9f9fc; /* Light lavender background */
 }
 
 .rating-controls .card {

@@ -6,18 +6,26 @@ import ArticleContent from "./components/ArticleContent";
 import RatingControls from "./components/RatingControls";
 import { fetchTopArticles } from "./utils/api";
 
-const criteria = [
-  "Clarity of Language",
-  "Accuracy of Information",
-  "Neutrality and Objectivity",
-  "Comprehensiveness and Depth",
-];
-
 const App = () => {
   const [articles, setArticles] = useState([]);
   const [currentArticleIndex, setCurrentArticleIndex] = useState(0);
   const [reviewData, setReviewData] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
+  const [criteria, setCriteria] = useState([]);
+
+  // Fetch criteria from configuration file
+  useEffect(() => {
+    const loadCriteria = async () => {
+      try {
+        const response = await fetch("/src/config/criteria.json");
+        const data = await response.json();
+        setCriteria(data.criteria);
+      } catch (error) {
+        console.error("Error loading criteria:", error);
+      }
+    };
+    loadCriteria();
+  }, []);
 
   // Fetch articles on mount
   useEffect(() => {
@@ -68,17 +76,19 @@ const App = () => {
             md={3}
             sm={4}
             xs={12}
-            className="sidebar vh-100 overflow-auto"
+            className="sidebar vh-100 d-flex flex-column overflow-auto"
             style={{ position: 'fixed', top: '56px', bottom: 0, padding: "1rem" }}
           >
-            <ArticleList
-              articles={articles}
-              onArticleSelect={handleArticleSelect}
-              currentArticleIndex={currentArticleIndex}
-              reviewData={reviewData}
-              criteria={criteria}
-              searchQuery={searchQuery}
-            />
+            <div className="flex-grow-1 overflow-auto">
+                <ArticleList
+                  articles={articles}
+                  onArticleSelect={handleArticleSelect}
+                  currentArticleIndex={currentArticleIndex}
+                  reviewData={reviewData}
+                  criteria={criteria}
+                  searchQuery={searchQuery}
+                />
+            </div>
             <RatingControls
               criteria={criteria}
               onRatingChange={handleRatingChange}

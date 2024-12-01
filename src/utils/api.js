@@ -8,7 +8,7 @@ export const fetchTopArticles = async () => {
       `https://en.wikipedia.org/api/rest_v1/feed/featured/${year}/${month}/${day}`,
     );
     const data = await response.json();
-    return data.mostread.articles.slice(0, 12);
+    return data.mostread.articles.slice(0, 22);
   } catch (error) {
     console.error("Error fetching top articles:", error);
     return [];
