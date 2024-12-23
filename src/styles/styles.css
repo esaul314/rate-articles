@@ -94,3 +94,12 @@ body,
 .article-list .list-group-item:last-child {
   border-bottom: none;
 }
+
+.navbar .form {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .navbar-brand {
+  margin-left: auto;
+}

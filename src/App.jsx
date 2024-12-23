@@ -12,8 +12,8 @@ const App = () => {
   const [reviewData, setReviewData] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
   const [criteria, setCriteria] = useState([]);
+  const [filterType, setFilterType] = useState("mostread");
 
-  // Fetch criteria from configuration file
   useEffect(() => {
     const loadCriteria = async () => {
       try {
@@ -27,22 +27,19 @@ const App = () => {
     loadCriteria();
   }, []);
 
-  // Fetch articles on mount
   useEffect(() => {
     const loadArticles = async () => {
-      const fetchedArticles = await fetchTopArticles();
+      const fetchedArticles = await fetchTopArticles(filterType);
       setArticles(fetchedArticles);
     };
     loadArticles();
-  }, []);
+  }, [filterType]);
 
-  // Load review data from localStorage
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem("reviewData") ?? "{}");
     setReviewData(savedData);
   }, []);
 
-  // Save review data to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("reviewData", JSON.stringify(reviewData));
   }, [reviewData]);
@@ -64,30 +61,37 @@ const App = () => {
     }
   };
 
+  const handleFilterChange = (filter) => {
+    setFilterType(filter);
+  };
+
   const currentArticle = articles[currentArticleIndex];
 
   return (
     <>
-      <NavigationBar onSearch={setSearchQuery} />
+      <NavigationBar
+        onSearch={setSearchQuery}
+        onFilterChange={handleFilterChange}
+        activeFilter={filterType} // Pass the active filter type
+      />
       <Container fluid>
         <Row>
-          {/* Left Sidebar */}
           <Col
             md={3}
             sm={4}
             xs={12}
-            className="sidebar vh-100 d-flex flex-column overflow-auto"
+            className="sidebar vh-100 d-flex flex-column"
             style={{ position: 'fixed', top: '56px', bottom: 0, padding: "1rem" }}
           >
             <div className="flex-grow-1 overflow-auto">
-                <ArticleList
-                  articles={articles}
-                  onArticleSelect={handleArticleSelect}
-                  currentArticleIndex={currentArticleIndex}
-                  reviewData={reviewData}
-                  criteria={criteria}
-                  searchQuery={searchQuery}
-                />
+              <ArticleList
+                articles={articles}
+                onArticleSelect={handleArticleSelect}
+                currentArticleIndex={currentArticleIndex}
+                reviewData={reviewData}
+                criteria={criteria}
+                searchQuery={searchQuery}
+              />
             </div>
             <RatingControls
               criteria={criteria}
@@ -96,13 +100,12 @@ const App = () => {
               className="rating-controls"
             />
           </Col>
-          {/* Main Content Area */}
           <Col
             md={{ span: 9, offset: 3 }}
             sm={{ span: 8, offset: 4 }}
             xs={12}
             className="vh-100 overflow-auto"
-            style={{ marginLeft: '25%' }} // Adjust margin to match sidebar width
+            style={{ marginLeft: '25%' }}
           >
             <ArticleContent article={currentArticle} />
           </Col>
@@ -113,3 +116,5 @@ const App = () => {
 };
 
 export default App;
+
+
