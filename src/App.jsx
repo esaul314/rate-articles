@@ -65,6 +65,10 @@ const App = () => {
     setFilterType(filter);
   };
 
+  const handleCustomDateRange = (data) => {
+    setArticles(data);
+  };
+
   const currentArticle = articles[currentArticleIndex];
 
   return (
@@ -72,7 +76,8 @@ const App = () => {
       <NavigationBar
         onSearch={setSearchQuery}
         onFilterChange={handleFilterChange}
-        activeFilter={filterType} // Pass the active filter type
+        activeFilter={filterType}
+        onCustomDateRange={handleCustomDateRange}
       />
       <Container fluid>
         <Row>
@@ -116,5 +121,3 @@ const App = () => {
 };
 
 export default App;
-
-
